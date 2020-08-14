@@ -1,0 +1,55 @@
+{
+  "name": "scratch-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node server/server.js",
+    "build": "NODE_ENV=production webpack",
+    "dev-win": "concurrently \"cross-env NODE_ENV=development webpack-dev-server --open ./\" \"nodemon ./server/server.js\"",
+    "dev-mac": "NODE_ENV=development webpack-dev-server --hot & nodemon server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tasseled-Wobbegong/Scratch-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tasseled-Wobbegong/Scratch-project/issues"
+  },
+  "homepage": "https://github.com/Tasseled-Wobbegong/Scratch-project#readme",
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "concurrently": "^5.3.0",
+    "cross-env": "^7.0.2",
+    "css-loader": "^4.2.1",
+    "file-loader": "^6.0.0",
+    "file-system": "^2.2.2",
+    "html-webpack-plugin": "^4.3.0",
+    "node-sass": "^4.14.1",
+    "nodemon": "^2.0.4",
+    "sass": "^1.26.10",
+    "sass-loader": "^9.0.3",
+    "style-loader": "^1.2.1",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-hot-middleware": "^2.25.0"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "express": "^4.17.1",
+    "pg": "^8.3.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-hot-loader": "^4.12.21",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0"
+  }
+}
