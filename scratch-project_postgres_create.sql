@@ -65,16 +65,24 @@ SELECT setval('events_eventid_seq', 1, false);
 -- FROM events;
 
 
+CREATE TABLE usersandevents
+(
+  uselessid serial PRIMARY KEY,
+  userid bigint REFERENCES users (userid),
+  username varchar REFERENCES users (username),
+  eventid bigint REFERENCES events (eventid),
+  eventtitle varchar REFERENCES events (eventtitle)
+);
 
--- CREATE TABLE usersandevents
--- (
---   useless_id serial PRIMARY KEY,
---   userid bigint REFERENCES users (userid),
---   username varchar REFERENCES users (username),
---   eventid bigint REFERENCES events (eventid),
---   eventtitle varchar REFERENCES events (eventtitle)
--- );
+INSERT INTO usersandevents
+  (userid, username, eventid, eventtitle)
+VALUES(1, 'bonjay123', 2, 'minchan birthday');
 
--- SELECT setval('usersandevents_uselessid_seq', 1, false);
+INSERT INTO usersandevents
+  (userid, username, eventid, eventtitle)
+VALUES(3, 'stella123', 2, 'minchan birthday');
+
+
+SELECT setval('usersandevents_uselessid_seq', 1, false);
 -- SELECT setval('events_eventid_seq', max(eventid))
 -- FROM events;
