@@ -1,13 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-
 module.exports = {
   entry: './client/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/dist/',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   devtool: 'eval-source-map',
   mode: process.env.NODE_ENV,
@@ -24,9 +23,9 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
-        }
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
       },
       {
         test: /\.(png|jpg|gif)$/,
@@ -44,18 +43,17 @@ module.exports = {
     ]
   },
   devServer: {
-    port: 4000,
     // contentBase: path.resolve(__dirname, '/dist'),
     publicPath: '/dist/',
     proxy: {
-      '/': {
+      '/api/**': {
         target: 'http://localhost:3000',
         secure: false,
       },
-      // '/assets/**': {
-      //   target: 'http://localhost:3000',
-      //   secure: false,
-      // },
+      '/assets/**': {
+        target: 'http://localhost:3000',
+        secure: false,
+      },
     },
     hot: true,
   },
@@ -64,7 +62,4 @@ module.exports = {
       template: './client/index.html',
     }),
   ],
-}
-
-
-
+};
