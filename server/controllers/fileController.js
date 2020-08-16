@@ -3,8 +3,6 @@ const { ResolvePlugin } = require("webpack");
 
 const fileController = {};
 
-// RENAME THIS FILENAME TO BE USERCONTROLLER FOR SEMANTIC PURPOSES.
-
 fileController.createUser = async (req, res, next) => {
   const {
     username,

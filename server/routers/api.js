@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+<<<<<<< HEAD
 
 const fileController = require('../controllers/fileController');
 const cookieController = require('../controllers/cookieController');
@@ -7,6 +8,28 @@ const eventController = require('../controllers/eventController');
 
 
 // INITIAL LOGIN
+=======
+const fileController = require("../controllers/fileController");
+const loginController = require("../controllers/loginController");
+
+router.get("/", (req, res ) => {
+  return res.status(200).send('hi');
+
+})
+
+router.get("/login", loginController.oAuth, (req,res) => {
+  console.log('hihihi')
+    return res.redirect(res.locals.url)
+});
+
+router.get("/login/google", loginController.afterConsent, (req,res) => {
+  return res.send('You are logged in');
+})
+
+router.post("/signup", (req,res) => {
+
+});
+>>>>>>> MinchanJun
 
 router.get('/login', // be mindful if this is GET vs. POST request
   // need to go through OAuth before this route is accessed
