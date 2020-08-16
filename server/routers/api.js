@@ -4,7 +4,7 @@ const router = express.Router();
 const fileController = require('../controllers/fileController');
 const cookieController = require('../controllers/cookieController');
 const eventController = require('../controllers/eventController');
-const loginController = require("../controllers/loginController");
+const loginController = require('../controllers/loginController');
 
 router.get("/", (req, res) => {
   return res.status(200).send('hi');
@@ -15,22 +15,28 @@ router.get("/login", loginController.oAuth, (req, res) => {
   return res.redirect(res.locals.url)
 });
 
-router.get("/login/google", loginController.afterConsent, (req, res) => {
-  return res.send('You are logged in');
-})
+router.get("/login/google",
+loginController.afterConsent,
+cookieController.setSSIDCookie,
+fileController.getUser,
+eventController.getFullEvents,
+(req, res) => {
+  // available for use: res.locals.userInfo, res.locals.eventsInfo
+  
+  console.log('USERINFO: ', res.locals.allUserInfo)
+  console.log('eventsinfo :', res.locals.allEventsInfo)
+  
+  const responseObj = {
+    
+  };
+  return res.status(200).send('hi there');
+});
 
-router.get('/login', // be mindful if this is GET vs. POST request
-  // need to go through OAuth before this route is accessed
-  cookieController.setSSIDCookie,
-  fileController.getUser,
-  eventController.getFullEvents,
-  (req, res) => {
-    // available for use: res.locals.userInfo, res.locals.eventsInfo
-    const responseObj = {
 
-    };
-    return res.status(200).json(responseObj);
-  });
+// (req, res) => {
+//   //return res.send('You are logged in');
+//   return res.redirect('/api/afterLogin')
+// })
 
 
 // REVISITING THE WEBSITE AND CHECKING TO SEE IF THEY ARE ALREADY LOGGED IN

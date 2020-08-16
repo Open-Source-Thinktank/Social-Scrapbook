@@ -1,7 +1,6 @@
 const db = require("../models/models.js");
 const queries = require("../utils/queries");
-const { ResolvePlugin } = require("webpack");
-
+const jwtDecode = require('jwt-decode');
 const fileController = {};
 
 fileController.createUser = (req, res, next) => { // ADD BACK ASYNC IF YOU TURN ON THE TRY / CATCH / AWAIT
@@ -43,26 +42,30 @@ fileController.createUser = (req, res, next) => { // ADD BACK ASYNC IF YOU TURN 
 };
 
 fileController.getUser = (req, res, next) => { // SET BACK TO ASYNC IF AWAIT IS USED
-  const { user } = req.cookies; // DOUBLE CHECK LATER NOTE FROM JEN & MINCHAN
+  const { user } = req.cookies;
+  
+  const decoded = jwtDecode(user);
+  const { email } = decoded;
 
   let targetUser;
   if (req.query.userName) {
     targetUser = req.query.userName // this is in the event that user visits someone else' profile page
   } else {
-    // insert logic to set targetUser to JWT.verify method; this is in teh event that user visits their own profile page
+    targetUser = email;
   }
 
+  console.log('targetUser: ', targetUser);
   const queryString = queries.userInfo;
-  const queryValues = [user]; //user will have to be verified Jen / Minchan
+  const queryValues = [targetUser]; //user will have to be verified Jen / Minchan
   db.query(queryString, queryValues)
     .then(data => {
-      res.locals.userid = data.rows[0].userid;
+      res.locals.allUserInfo = data.rows[0];
       return next();
     })
     .catch(err => {
       return next({
         log: `Error occurred with queries.userInfo OR fileController.getUser middleware: ${err}`,
-        message: { err: "An error occured with SQL, check server for more details." },
+        message: { err: "An error occured with SQL or server, check server for more details." },
       });
     })
 
