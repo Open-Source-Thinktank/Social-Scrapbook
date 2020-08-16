@@ -39,9 +39,13 @@ CREATE TABLE events
   "eventdetails" varchar NOT NULL CHECK ( eventdetails  <> ''),
   "eventownerid" bigint NOT NULL,
   "eventownerusername" varchar NOT NULL,
-  UNIQUE ( eventtitle )
-  -- FOREIGN KEY (eventownerid) REFERENCES users (userid),
-  -- FOREIGN KEY (eventownerusername) REFERENCES users (username)
+  UNIQUE ( eventtitle ),
+  FOREIGN KEY
+  (eventownerid) REFERENCES users
+  (userid),
+  FOREIGN KEY
+  (eventownerusername) REFERENCES users
+  (username)
 );
 
 -- INSERT INTO events
@@ -81,11 +85,11 @@ CREATE TABLE usersandevents
   "userid" bigint NOT NULL,
   "username" varchar NOT NULL,
   "eventid" bigint NOT NULL,
-  "eventtitle" varchar NOT NULL
-  -- FOREIGN KEY ( userid ) REFERENCES users ( userid ),
-  -- FOREIGN KEY ( username ) REFERENCES users ( username ),
-  -- FOREIGN KEY ( eventid ) REFERENCES events ( eventid ),
-  -- FOREIGN KEY ( eventtitle ) REFERENCES events ( eventtitle )
+  "eventtitle" varchar NOT NULL,
+  FOREIGN KEY ( userid ) REFERENCES users ( userid ),
+  FOREIGN KEY ( username ) REFERENCES users ( username ),
+  FOREIGN KEY ( eventid ) REFERENCES events ( eventid ),
+  FOREIGN KEY ( eventtitle ) REFERENCES events ( eventtitle )
 );
 
 -- ALTER TABLE  usersandevents ADD CONSTRAINT "usersandevents_fk0" FOREIGN KEY ("userid") REFERENCES users("userid");
