@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 
-const PG_URI = 'ENTER URL HERE';
+const PG_URI = 'postgres://opkmyovf:jlzeGeCdKnUTuAX0p15MbMj7v1LqFpFg@rajje.db.elephantsql.com:5432/opkmyovf';
 
 const pool = new Pool({
   connectionString: PG_URI,
