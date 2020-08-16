@@ -57,3 +57,52 @@ body {
 .message {
   padding: 10px;
 }
+
+.circular {
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgb(204, 204, 204);
+  box-shadow: 2px 3px 6px #cacaca;
+}
+.circular img {
+  // width: 50px;
+  height: 85px;
+  object-fit: contain;
+  // min-width: 100%;
+  // min-height: 100%;
+  // width: auto;
+  // height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+}
+
+.attendeesContainer h5 {
+  text-align: center;
+}
+
+.attendees {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.attendee {
+  margin: 10px;
+}
+
+.searchResults {
+  display: grid;
+}
+
+.searchResult {
+  margin: 0.3em;
+}

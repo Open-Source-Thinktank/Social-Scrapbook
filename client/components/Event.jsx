@@ -4,12 +4,6 @@ import Content from './Content.jsx';
 import { ListGroup, Container, Row, Jumbotron } from 'react-bootstrap';
 
 export default function Event(props) {
-  console.log('Event', props);
-
-  // date: '08/15/2020',
-  //   time: '02:46 PM EST',
-  //     location: 'nowhere',
-  //       description: 'Enter a meaningful description here',
 
   return (
     <div className="event">
@@ -24,12 +18,10 @@ export default function Event(props) {
       </Jumbotron>
 
       <Container>
-        <Row>
-            <EventAttendees 
-            {...props}
-              userUpdate={props.userUpdate}
-             />
-        </Row>
+        <EventAttendees 
+        {...props}
+          userUpdate={props.userUpdate}
+          />
       </Container>
       <Content {...props} />
       </Container>

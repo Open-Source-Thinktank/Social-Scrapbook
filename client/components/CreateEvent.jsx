@@ -1,50 +1,51 @@
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
 
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DateTimePicker from 'react-datetime-picker';
 
-export default function CreateEvent() {
-  const [startDate, setDate] = useState(new Date())
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faSearchPlus } from '@fortawesome/free-solid-svg-icons'
+import {Modal, Button, Form, Card} from 'react-bootstrap';
+
+export default function CreateEvent({addEvent}) {
+  /* Form data */
+  const initialFormData = Object.freeze({
+    title: "",
+    description: ""
+  });
+  
+  const [formData, updateFormData] = React.useState(initialFormData);
+  const [dateTime, onChange] = useState(new Date());
   const [show, setShow] = useState(false);
+  
+  const handleChange = (e) => {
+    updateFormData({
+      ...formData,
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleDate = date => {
-    setDate(date);
+      // Trimming any whitespace
+      [e.target.name]: e.target.value.trim()
+    });
   };
 
-  let month = [];
-  for (let i = 1; i <= 12; i++) {
-    month.push(<option key={`month${i}`} value={i}>{i}</option>);
-  }
-
-  let day = [];
-  for (let i = 1; i <= 31; i++) {
-    day.push(<option key={`day${i}`} value={i}>{i}</option>);
-  }
-
-  let year = [];
-  for (let i = 2020; i <= 2030; i++) {
-    year.push(<option key={`year${i}`} value={i}>{i}</option>);
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const date = dateTime.toDateString();
+    const time = dateTime.toTimeString();
+    // ... submit to API or something
+    addEvent({ ...formData, date, time})
+    handleClose();
+  };
+  
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  // const handleDate = date => {
+  //   setDate(date);
+  // };
 
   return (
     <div>
-      {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button> */}
 
       <Card className="mx-auto text-center" style={{ width: '18rem' }}>
-          <div className="cardContainer">
+          <div className="cardContainer" onClick={handleShow}>
             <FontAwesomeIcon className="mx-auto faPlus" icon={faPlus} size="8x" />
             <Card.Body>
               <Card.Title>Add Event</Card.Title>
@@ -61,19 +62,20 @@ export default function CreateEvent() {
           <Form>
             <Form.Group controlId="formEventTitle">
               <Form.Label>Event Title</Form.Label>
-              <Form.Control required type="text" placeholder="Enter title" />
+              <Form.Control name='title' onChange={handleChange} required type="text" placeholder="Enter title" />
             </Form.Group>
 
             <Form.Group controlId="formEventDescription">
               <Form.Label>Event Description</Form.Label>
-              <Form.Control required as="textarea" placeholder="Enter description" />
+              <Form.Control name='description' onChange={handleChange} required as="textarea" placeholder="Enter description" />
             </Form.Group>
 
-            <DatePicker
-              selected={startDate}
-              onChange={handleDate}
+            <DateTimePicker
+              onChange={onChange}
+              value={dateTime}
             />
-            <Button variant="primary" type="submit">
+
+            <Button variant="primary" type="submit" onClick={(e) => { handleSubmit(e)}}>
               Submit
             </Button>
           </Form>

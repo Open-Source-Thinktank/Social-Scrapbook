@@ -83,8 +83,27 @@ export default function MainContainer() {
   }
 
   function handleCreateEvent(event) {
-    console.log('Event:', event)
-    setEvent(event);
+    event.attendees = [
+      {
+        userName: user.userName,
+        profilePicture: user.profilePicture
+      }
+    ]
+    event.content = [];
+    const newEvents = [event].concat(events);
+    console.log("updated events:", newEvents);
+    setEvents(newEvents);
+  }
+
+  function handleSearchEvent(event) {
+    event.attendees.push(
+      {
+        userName: user.userName,
+        profilePicture: user.profilePicture
+      });
+    const newEvents = [event].concat(events);
+    console.log("updated events:", newEvents);
+    setEvents(newEvents);
   }
     
   return (
@@ -95,7 +114,7 @@ export default function MainContainer() {
         <Col>
           <Profile {...user}/>
         </Col>
-        <AddSearchEvent addEvent={handleCreateEvent}/>
+          <AddSearchEvent addEvent={handleCreateEvent} searchEvent={handleSearchEvent} events={events}/>
       </Row>
       </Container>
       <EventsFeed 

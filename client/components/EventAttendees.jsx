@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Image, Col} from 'react-bootstrap';
+import {Image, Col, Row} from 'react-bootstrap';
 
 export default function EventAttendees({attendees, userUpdate}) {
 
@@ -7,18 +7,19 @@ export default function EventAttendees({attendees, userUpdate}) {
   if (attendees) {
     attendeesList = attendees.map( attendee => {
     return (
-        <Col xs={2} md={2}>
-        <Image src={`${attendee.profilePicture}`} roundedCircle fluid onClick={() => { userUpdate(attendee.userName)}}/>
-        </Col>
-      )
+      <div class="attendee circular">
+        <img src={`${attendee.profilePicture}`} onClick={() => { userUpdate(attendee.userName)}}/>
+      </div>
+    )
     });
   }
 
   return (
-    // <div className="attendees">
-    <>
-      { attendeesList }
-    </>
-    // div
+    <div class="attendeesContainer">
+      <h5>Attendees:</h5>
+        <div class="attendees">
+          { attendeesList }
+        </div>
+    </div>
   );
 }

@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from "react";
 import {Media, Form, Button} from 'react-bootstrap';
+
 export default function Content({ content }) {
 
-/*
-      content: [
-        {
-          text: 'awesome!! can\'t wait',
-          time: '02:51 PM EST' // formatting not set in stone
-        },
-        {
-          text: 'lets go',
-          time: '01:35 PM EST'
-        }
-      ]
-*/
-  // console.log('content', content);
+  const [cont, setCont] = useState(content);
+  const [comment, setComment] = useState("")
+
   let messages = [];
-    if (content) {
-    messages = content.map( message => {
+  if (cont) {
+    messages = cont.map( message => {
       return (
         <div className="message">
           <p className="messageText">{message.text}</p>
@@ -27,18 +18,31 @@ export default function Content({ content }) {
     });
   }
 
+  const handleChange = (e) => {
+    setComment(e.target.value)
+  }
+
+  function handleCommentSubmit (e) {
+    e.preventDefault();
+    const date = new Date();
+    const newContent = cont.concat([{ text: comment, time: date.toTimeString()}])
+    setCont(newContent)
+    //clear form data
+    document.getElementsByName('comment-form')[0].reset();
+  }
+
   return (
     <div className="eventContent">
-      <h4>Comments:</h4>
+      <h4>Comments</h4>
       <div className="messages">
         { messages }
       </div>
-      <Form>
+      <Form name='comment-form'>
         <Form.Group controlId="exampleForm.ControlTextarea1">
           <Form.Label>Add a Comment:</Form.Label>
-          <Form.Control as="textarea" rows="2" />
+          <Form.Control as="textarea" rows="2" onChange={handleChange} />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" onClick={(e) => {handleCommentSubmit(e)}}>
           Submit
         </Button>
       </Form>
