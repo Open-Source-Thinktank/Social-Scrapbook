@@ -2,14 +2,14 @@ const db = require("../models/models");
 const queries = require("../utils/queries");
 const eventController = {};
 
-eventController.getFullEvents = (req, res, next) => { // ADD BACK ASYNC IF YOU WANT TO DO TRY CATCH
-  // OPTION 1 OR 2: username is saved on res.locals.username
-  const { userid } = res.locals.userid;
+eventController.getFullEvents = (req, res, next) => { 
+  
   const queryString = queries.userEvents;
-  const queryValues = [userid]; //user will have to be verified Jen / Minchan
+  const queryValues = [res.locals.allUserInfo.userid]; //user will have to be verified Jen / Minchan
   db.query(queryString, queryValues)
     .then(data => {
-      res.locals.userevents = data;
+      res.locals.allEventsInfo = data.rows[0];
+      console.log(res.locals.allEventsInfo);
       return next();
     })
     .catch(err => {
