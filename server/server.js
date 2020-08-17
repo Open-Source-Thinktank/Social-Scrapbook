@@ -31,6 +31,6 @@ app.use((err, req, res, next) => {
   res.status(401).send(err.message); // WHAT IS FRONT-END EXPECTING? JSON OR STRING?
 });
 
-app.listen(3000); //listens on port 3000 -> http://localhost:3000/
-
+//app.listen(3000); //listens on port 3000 -> http://localhost:3000/
+app.listen(process.env.PORT || 3000);
 module.exports = app;
