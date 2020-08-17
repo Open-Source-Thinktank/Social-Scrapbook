@@ -1,12 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: './client/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/dist/',
     filename: 'bundle.js'
   },
   devtool: 'eval-source-map',
@@ -15,7 +14,8 @@ module.exports = {
     rules: [
       {
         test: /.(css|scss)$/,
-        exclude: /node_modules/,
+        // include: [path.resolve(__dirname, '/node_modules/react-datepicker/'), path.resolve(__dirname, '/node_modules/bootstrap/')],
+        // exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
@@ -29,7 +29,7 @@ module.exports = {
         }
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
         use: [
           {
             // loads files as base64 encoded data url if image file is less than set limit
@@ -44,9 +44,9 @@ module.exports = {
     ]
   },
   devServer: {
-    port: 4000,
+    port: 8080,
     // contentBase: path.resolve(__dirname, '/dist'),
-    publicPath: '/dist/',
+    // publicPath: '/dist/',
     proxy: {
       '/': {
         target: 'http://localhost:3000',
@@ -63,6 +63,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './client/index.html',
     }),
+    new MiniCssExtractPlugin() 
   ],
 }
 

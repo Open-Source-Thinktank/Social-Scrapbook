@@ -1,0 +1,300 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Dancing+Script&family=Montserrat&family=Julius+Sans+One&family=Baloo+Tamma+2&family=Poiret+One&display=swap');
+
+body {
+  color:rgb(77, 77, 77);
+}
+
+.myNavbar {
+  // width: 90%;
+  background-color: rgb(129, 216, 208);
+  margin-bottom: 30px;
+}
+
+.navButton {
+  color: white;
+  border: 1px solid white;
+}
+
+.brand {
+  font-family: 'Dancing Script', cursive;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.col {
+  display: flex;
+  align-content: center;
+}
+.myCol {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  border: 0px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  border: 1px rgb(157, 189, 211) solid;
+  padding: 2em;
+  padding-left: 80px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px 1px rgb(129, 216, 208);
+  background-color: rgb(250, 250, 250);
+  font-family: 'Poiret One', cursive;
+}
+
+.profile img {
+  border-radius: 10px;
+  border: 3px solid rgb(129, 216, 208);
+  width: 150px;
+}
+
+.cardContainer {
+  border: 1px gainsboro solid;
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px gainsboro;
+  text-align: center;
+  padding-top: 25px;
+  margin-top: 40px;
+  margin-right: 25px;
+  font-family: 'Baloo Tamma 2'
+}
+.cardContainer:hover{
+    // color: rgb(37, 13, 190);
+  background-color: #9ed0d8;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+.cardContainer p {
+  padding-top: 20px;
+}
+
+/* Event.jsx */
+
+.event {
+  border: 1px solid gainsboro;
+ margin: 1em;
+  padding: 1em;
+  box-shadow: 1px 1px 1px 1px gainsboro;
+  border-radius: 5px;
+  background-color: rgb(250, 250, 250);
+}
+
+.jumbotron {
+  // background-color: rgb(253, 238, 205);
+  border: 1px solid rgb(129, 216, 208);
+  box-shadow: 1px 1px 1px 1px gainsboro;
+  // background-color: transparent;
+}
+
+.eventJumbotron {
+  text-align: center;
+  font-family: 'Montserrat';
+}
+
+.eventJumbotron h1 {
+  font-family: 'Abril Fatface';
+  letter-spacing: 3px;
+  font-size: 60px;
+}
+
+/* EventAttendees.jsx */
+
+.circular {
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgb(204, 204, 204);
+  box-shadow: 2px 3px 6px #cacaca;
+  margin: 10px;
+}
+.circular img {
+  // width: 50px;
+  height: 85px;
+  object-fit: contain;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.attendeesContainer h5 {
+  text-align: center;
+}
+
+.attendees {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.attendeeInfo {
+  text-align: center;
+  font-size: 10px;
+}
+
+/* SearchEvent.jsx */
+
+.searchResults {
+  display: grid;
+}
+
+.searchResult {
+  margin: 0.3em;
+}
+
+
+/* Content.jsx */
+
+.userMessage {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgb(204, 204, 204);
+  box-shadow: 2px 3px 6px #cacaca;
+  margin: 10px;
+}
+
+.userMessage img {
+    height: 50px;
+    object-fit: contain;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);  
+}
+.messageBox {
+  display: flex;
+  justify-content: left;
+}
+
+.messages p {
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
+}
+.messageName {
+  font-weight: bold;
+}
+
+.message {
+  padding: 10px;
+}
+
+
+/* rainbow divider */
+
+$bg: white;
+$barsize: 15px;
+
+.hr {
+  width: 80%;
+  margin: 0 auto;
+  height: 1px;
+  display: block;
+  position: relative;
+  margin-bottom: 0em;
+  padding: 2em 0;
+
+  &:after,
+  &:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 50%;
+    left: 0;
+  }
+
+  &:before {
+
+    background: linear-gradient( 90deg, $bg 0%, $bg 50%, transparent 50%, transparent 100% );
+    background-size: $barsize;
+    background-position: center;
+    z-index: 1;
+
+  }
+
+  &:after {
+    transition: opacity 0.3s ease, animation 0.3s ease;
+    background: linear-gradient(
+        to right, 
+        #62efab 5%, 
+        #F2EA7D 15%, 
+        #F2EA7D 25%, 
+        #FF8797 35%, 
+        #FF8797 45%, 
+        #e1a4f4 55%, 
+        #e1a4f4 65%, 
+        #82fff4 75%, 
+        #82fff4 85%, 
+        #62efab 95%);
+    background-size: 200%;
+    background-position: 0%;
+    animation: bar 15s linear infinite;
+  }
+
+  @keyframes bar {
+    0% { background-position: 0%; }
+    100% { background-position: 200%; }
+  }
+}
+
+.hr.anim {
+  &:before {
+    background: linear-gradient( 
+      90deg, 
+      $bg 0%, $bg 5%, 
+      transparent 5%, transparent 10%, 
+      $bg 10%, $bg 15%, 
+      transparent 15%, transparent 20%, 
+      $bg 20%, $bg 25%,
+      transparent 25%, transparent 30%,
+      $bg 30%, $bg 35%, 
+      transparent 35%, transparent 40%, 
+      $bg 40%, $bg 45%, 
+      transparent 45%, transparent 50%, 
+      $bg 50%, $bg 55%,
+      transparent 55%, transparent 60%,
+      $bg 60%, $bg 65%,
+      transparent 65%, transparent 70%, 
+      $bg 70%, $bg 75%, 
+      transparent 75%, transparent 80%, 
+      $bg 80%, $bg 85%,
+      transparent 85%, transparent 90%,
+      $bg 90%, $bg 95%, 
+      transparent 95%, transparent 100% );
+
+    background-size: $barsize * 10;
+    background-position: center;
+    z-index: 1;
+    
+    animation: bar 120s linear infinite;
+      
+  }
+
+  &:hover {
+    &:before {
+        animation-duration: 20s;
+    }
+    &:after {
+        animation-duration: 2s;
+    }
+  }
+}
