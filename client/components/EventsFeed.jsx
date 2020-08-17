@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import Event from './Event.jsx';
 
 export default function EventsFeed(props) {
-  console.log('EventsFeed', props);
   let events = [];
-  if (props) {
+  if (props.events && Object.keys(props.events).length > 0) {
     events = props.events.map( (event, index) => {
         return <Event
          {...event}

@@ -6,16 +6,18 @@ import axios from 'axios';
 import { Card, Button, Col, Row, Container} from 'react-bootstrap';
 import AddSearchEvent from './AddSearchEvent.jsx';
 
-
-export default function MainContainer() {
-  const [user, setUser] = useState({
+/*
+{
       userName: 'marc',
       firstName: 'Marc',
       lastName: 'Burnie',
       location: 'somewhere',
       profilePicture: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Pug_portrait.jpg/1599px-Pug_portrait.jpg'
-    });
-  const [events, setEvents] = useState([
+    }
+*/
+
+/*
+[
     {
       title: 'Awesome Event',
       eventOwner: {
@@ -79,19 +81,31 @@ export default function MainContainer() {
         },
       ]
     }
-  ]);
-  const [userName, setUserName] = useState("");
+  ]
+*/
 
+export default function MainContainer() {
+
+  const [userName, setUserName] = useState("");
+  const [user, setUser] = useState({});
+  const [events, setEvents] = useState([]);
+    
   useEffect(() => {
-    axios.get(`/info?userName=${userName}`)
-      .then((res) => {
-        console.log('res: ', res);
-        /*
-          setEvents(res.events);
-          setUser(res.user);
-        */
-      })
-  });
+    axios.get(`/api/info?userName=${userName}`)
+    .then((res) => {
+      console.log(res.data);
+      let userInfo = {
+        userName: res.data.users.username,
+        firstName: res.data.users.firstname,
+        lastName: res.data.users.lastname,
+        profilePicture: res.data.users.profilephoto,
+      }
+      let eventsInfo = res.data.events;
+      setUser(userInfo);
+      setEvents(eventsInfo);
+      setUserName(res.data.users.username);
+    })
+  }, []);
 
   function handleUserPageChange(userName) {
     console.log('userName:', userName)
@@ -99,13 +113,20 @@ export default function MainContainer() {
   }
 
   function handleCreateEvent(event) {
-    event.attendees = [
-      {
-        userName: user.userName,
-        profilePicture: user.profilePicture
-      }
-    ]
-    event.content = [];
+    let {title, location, date, time, description} = event;
+    axios.post(`/api/create?userName=${userName}`, {title, location, date, time, description})
+    .then((res) => {
+      console.log(res.data);
+      // let userInfo = {
+      //   userName: res.data.users.username,
+      //   firstName: res.data.users.firstname,
+      //   lastName: res.data.users.lastname,
+      //   profilePicture: res.data.users.profilephoto,
+      // }
+      // let eventsInfo = res.data.events;
+      // setUser(userInfo);
+      // setEvents(eventsInfo);
+    })
     const newEvents = [event].concat(events);
     console.log("updated events:", newEvents);
     setEvents(newEvents);

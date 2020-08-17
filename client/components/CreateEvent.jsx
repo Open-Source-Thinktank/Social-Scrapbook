@@ -10,8 +10,8 @@ export default function CreateEvent({addEvent}) {
   /* Form data */
   const initialFormData = Object.freeze({
     title: "",
+    location: "",
     description: "",
-    location: ""
   });
   
   const [formData, updateFormData] = React.useState(initialFormData);
@@ -30,9 +30,10 @@ export default function CreateEvent({addEvent}) {
   const handleSubmit = (e) => {
     e.preventDefault()
     const date = dateTime.toDateString();
-    const time = dateTime.toTimeString();
+    let time = dateTime.toTimeString();
+    time = time.split(" ")[0];
     // ... submit to API or something
-    addEvent({ ...formData, date, time})
+    addEvent({ ...formData, date, time });
     handleClose();
   };
   
@@ -71,9 +72,9 @@ export default function CreateEvent({addEvent}) {
               <Form.Control name='title' onChange={handleChange} required type="text" placeholder="Enter title" />
             </Form.Group>
 
-            <Form.Group controlId="formEventDescription">
+            <Form.Group controlId="formEventLocation">
               <Form.Label>Location</Form.Label>
-              <Form.Control name='location' onChange={handleChange} required as="text" placeholder="Enter description" />
+              <Form.Control name='location' onChange={handleChange} required type="text" placeholder="Enter location" />
             </Form.Group>
 
             <Form.Group controlId="formEventDescription">

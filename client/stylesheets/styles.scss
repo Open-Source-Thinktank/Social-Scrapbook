@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Dancing+Script&family=Montserrat&family=Julius+Sans+One&family=Lato:wght@100&family=Poiret+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Dancing+Script&family=Montserrat&family=Julius+Sans+One&family=Baloo+Tamma+2&family=Poiret+One&display=swap');
 
 body {
   color:rgb(77, 77, 77);
@@ -8,6 +8,11 @@ body {
   // width: 90%;
   background-color: rgb(129, 216, 208);
   margin-bottom: 30px;
+}
+
+.navButton {
+  color: white;
+  border: 1px solid white;
 }
 
 .brand {
@@ -34,6 +39,7 @@ body {
   align-items: center;
   border: 1px rgb(157, 189, 211) solid;
   padding: 2em;
+  padding-left: 80px;
   border-radius: 5px;
   box-shadow: 1px 1px 2px 1px rgb(129, 216, 208);
   background-color: rgb(250, 250, 250);
@@ -42,8 +48,8 @@ body {
 
 .profile img {
   border-radius: 10px;
-  border: 6px solid rgb(129, 216, 208);
-  width: 250px;
+  border: 3px solid rgb(129, 216, 208);
+  width: 150px;
 }
 
 .cardContainer {
@@ -55,11 +61,18 @@ body {
   text-align: center;
   padding-top: 25px;
   margin-top: 40px;
+  margin-right: 25px;
+  font-family: 'Baloo Tamma 2'
 }
 .cardContainer:hover{
     // color: rgb(37, 13, 190);
   background-color: #9ed0d8;
+  color: rgb(255, 255, 255);
   cursor: pointer;
+}
+
+.cardContainer p {
+  padding-top: 20px;
 }
 
 /* Event.jsx */
@@ -87,7 +100,7 @@ body {
 
 .eventJumbotron h1 {
   font-family: 'Abril Fatface';
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   font-size: 60px;
 }
 

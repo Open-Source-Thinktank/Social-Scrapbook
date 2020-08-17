@@ -9,7 +9,7 @@ export default function Notnav() {
   <Navbar expand="lg" className="myNavbar justify-content-between">
     <Navbar.Brand className="brand" href="#home"><FontAwesomeIcon icon={faFeatherAlt} /> Social Scrapbook </Navbar.Brand>
     <Nav>
-        <a href="/api/login"><Button variant="outline-primary"><FontAwesomeIcon icon={faGoogle} /> Sign Up/Log In</Button></a>
+        <a href="/api/login"><Button className="navButton" variant="outline-primary"><FontAwesomeIcon icon={faGoogle} /> Sign Up/Log In</Button></a>
     </Nav>
   </Navbar>
   )
