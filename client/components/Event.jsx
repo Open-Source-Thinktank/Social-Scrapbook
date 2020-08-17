@@ -14,10 +14,10 @@ export default function Event(props) {
       <Container>
         <Jumbotron fluid>
           <Container className='eventJumbotron'>
-            <h1>{props.title}</h1>
-            <h4>{props.date} - {props.time}</h4>
-            <h4>Location <FontAwesomeIcon icon={faLocationArrow} size="1x" /> : {props.location}</h4>
-            <p>{props.description}</p>       
+            <h1>{props.eventtitle}</h1>
+            <h4>{props.eventdate} - {props.starttime}</h4>
+            <h4>Location <FontAwesomeIcon icon={faLocationArrow} size="1x" /> : {props.eventlocation}</h4>
+            <p>{props.eventdetails}</p>       
           </Container>
         </Jumbotron>
 

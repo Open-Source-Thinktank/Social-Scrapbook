@@ -34,10 +34,12 @@ router.get('/login/google',
 router.get('/info',
   cookieController.isLoggedIn, // this is really only is applicable for the same user
   fileController.getUser,
-  eventController.getFullEvents,
-  eventController.getAllAttendees,
-  eventController.getUserDetail,
-  eventController.consolidation,
+  eventController.allEvents, // COMMENT OUT IF IT BREAKS
+  eventController.filterForUser, // COMMENT OUT IF IT BREAKS
+  // eventController.getFullEvents,
+  // eventController.getAllAttendees,
+  // eventController.getUserDetail,
+  // eventController.consolidation,
   (req, res) => {
     const responseObj = {
       users: res.locals.allUserInfo,
@@ -68,7 +70,7 @@ router.post('/create', // SWITCH THIS TO POST REQUEST!!
 
 // ADD USER TO AN EXISTING EVENT
 
-router.use('/add', // SWITCH THIS TO POST REQUEST!!
+router.post('/add',
   fileController.getUser,
   eventController.verifyAttendee,
   eventController.addAttendee,

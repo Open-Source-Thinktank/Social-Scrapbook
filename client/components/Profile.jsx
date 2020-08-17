@@ -6,12 +6,12 @@ export default function Profile(props) {
     <div className="profile">
       {/* <h4>Profile</h4> */}
       {/* <Card style={{ width: '18rem' }}> */}
-        <img src={props.profilePicture} />
+        <img src={props.profilephoto} />
 
         <Card.Body>
-          <Card.Title>{props.userName}</Card.Title>
+          <Card.Title>{props.username}</Card.Title>
           <Card.Text>
-            Hi, my name is {props.firstName} {props.lastName}!
+            Hi, my name is {props.firstname} {props.lastname}!
           </Card.Text>
         </Card.Body>
       {/* </Card> */}

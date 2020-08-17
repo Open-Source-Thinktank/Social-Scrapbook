@@ -9,9 +9,9 @@ export default function EventAttendees({attendees, userUpdate}) {
     return (
       <div className="attendeeInfo" key={`EventAttendees${index}`}>
         <div className="circular"  >
-          <img src={`${attendee.profilePicture}`} onClick={() => { userUpdate(attendee.userName)}}/>
+          <img src={`${attendee.profilephoto}`} onClick={() => { userUpdate(attendee.username)}}/>
         </div>
-        <p>{attendee.firstName} {attendee.lastName}</p>
+        <p>{attendee.firstname} {attendee.lastname}</p>
       </div>
     )
     });
