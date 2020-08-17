@@ -79,7 +79,6 @@ export default function SearchEvent({ searchEvent, events }) {
   useEffect(() => {
     axios.get('/api/events')
     .then(res => {
-      console.log('SearchEvent res, ', res);
       exampleEventData = res.data;
     })
   });

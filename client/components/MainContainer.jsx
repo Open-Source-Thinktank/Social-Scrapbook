@@ -133,6 +133,7 @@ export default function MainContainer() {
   }
 
   function handleSearchEvent(event) {
+    console.log("Main Container:", event)
     event.attendees.push(
       {
         userName: user.userName,

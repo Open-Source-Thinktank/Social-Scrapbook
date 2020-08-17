@@ -3,6 +3,7 @@ import Event from './Event.jsx';
 
 export default function EventsFeed(props) {
   let events = [];
+  console.log("Events Feed", props)
   if (props.events && Object.keys(props.events).length > 0) {
     events = props.events.map( (event, index) => {
         return <Event

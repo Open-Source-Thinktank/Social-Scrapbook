@@ -208,9 +208,21 @@ eventController.allEvents = (req, res, next) => {
       if (!data.rows) {
         res.locals.allEventsInfo = [];
       } else {
-        res.locals.allEventsInfo = data.rows;
+        // console.log('evenData', data.rows)
+        const eventAndUserDataQueryString =queries.getAttendeeEvents;
+        db.query(eventAndUserDataQueryString).then(eventAndUserData => {
+            // console.log('eventAndUserData', eventAndUserData.rows)
+          const mergedTable = data.rows.map(e => {
+            const attendees = eventAndUserData.rows.filter(entry => entry.eventid == e.eventid)
+            e.attendees = attendees;
+            return e;
+          })
+          res.locals.allEventsInfo = mergedTable
+            // console.log("merged table", res.locals.allEventsInfo)
+            return next();
+          })
       }
-      return next();
+
     })
     .catch(err => {
       return next({

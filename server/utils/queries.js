@@ -7,6 +7,13 @@ queries.getAllEvents = `
 SELECT * FROM events
 `;
 
+queries.getAttendeeEvents = `
+SELECT u.*, ue.eventid
+FROM usersandevents ue
+JOIN users u
+ON u.userid = ue.userid
+`;
+//
 // GET USER'S EVENTS
 queries.userEvents = `
 SELECT * FROM usersandevents WHERE userid=$1
