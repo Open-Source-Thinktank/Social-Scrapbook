@@ -11,6 +11,7 @@ const loginController = require('../controllers/loginController');
 router.get('/login',
   loginController.oAuth,
   (req, res) => {
+    // res.send('ok');
     return res.redirect(res.locals.url)
   });
 
@@ -25,7 +26,7 @@ router.get('/login/google',
     //   users: res.locals.allUserInfo,
     //   events: res.locals.allEventsInfo
     // };
-    return res.sendFile(path.join(__dirname, '../../client/index.html'));
+    return res.redirect('http://localhost:8080/')
   });
 
 // REVISIT WEBSITE AFTER LEAVING, OR VISITING SOMEONE ELSE'S PROFILE PAGE
@@ -56,7 +57,7 @@ router.use('/logout', // SWITCH THIS TO POST REQUEST!!
 
 // CREATE A NEW EVENT
 
-router.use('/create', // SWITCH THIS TO POST REQUEST!!
+router.post('/create', // SWITCH THIS TO POST REQUEST!!
   fileController.verifyUser,
   fileController.getUser,
   eventController.createEvent,
@@ -75,7 +76,7 @@ router.use('/add', // SWITCH THIS TO POST REQUEST!!
     return res.status(200).json('User successfully added as attendee.');
   });
 
-router.use('/events', // SWITCH THIS TO A GET REQUEST!!
+router.get('/events', // SWITCH THIS TO A GET REQUEST!!
   eventController.allEvents,
   (req, res) => {
     return res.status(200).json(res.locals.allEventsInfo);

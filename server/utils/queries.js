@@ -77,7 +77,7 @@ SELECT eventownerid, eventownerusername, eventid, eventtitle, eventdate, eventst
 RETURNING usersandevents;
 `;
 
-db.query(queries.addNewEventToJoinTable).then(data => console.log(data.rows));
+// db.query(queries.addNewEventToJoinTable).then(data => console.log(data.rows));
 
 
 // USERS ADDS THEMSELVES TO OTHER PEOPLE'S EVENTS

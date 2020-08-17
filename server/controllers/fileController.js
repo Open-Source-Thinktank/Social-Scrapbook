@@ -79,11 +79,10 @@ fileController.getUser = (req, res, next) => {
 };
 
 fileController.verifyUser = (req, res, next) => {
-
   const decoded = jwtDecode(req.cookies.user);
   const { email } = decoded;
-  // if (email === req.query.userName) {
-  if (email === 'minchanjun@gmail.com') { // =========> HARD CODED
+
+  if (email == req.query.userName) {
     return next();
   } else {
     return next({

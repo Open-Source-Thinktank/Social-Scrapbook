@@ -79,13 +79,22 @@ eventController.createEvent = (req, res, next) => {
   
   const queryString = queries.createEvent;
   // const queryValues = [ eventtitle, eventdate, eventstarttime, eventendtime, eventlocation, eventdetails, userid, username, [] ];
-  const queryValues = ['minchan birthday', '9/15/2020', '06:00 PM', '09:00 PM', 'golf course', 'play minigolf birthday', userid, username, "{'hey when is it again', 'happy birthday!', 'sorry can\'t make it'}"]
+// <<<<<<< HEAD
+//   const queryValues = ['minchan birthday', '9/15/2020', '06:00 PM', '09:00 PM', 'golf course', 'play minigolf birthday', userid, username, "{'hey when is it again', 'happy birthday!', 'sorry can\'t make it'}"]
+//   db.query(queryString, queryValues)
+//     .then(data => {
+// =======
+  // const queryValues = ['minchan birthday', '9/15/2020', '06:00 PM', '09:00 PM', 'golf course', 'play minigolf birthday', userid, username, "{}"]
+  let {title, location, date, time, description} = req.body;
+  const queryValues = [title, date, time, time, location, description, userid, username, "{}"];
   db.query(queryString, queryValues)
     .then(data => {
+      console.log('>>> eventController.createEvent DATA ', data);
       res.locals.eventID = data.rows[0];
       return next();
     })
     .catch(err => {
+      console.log('>>> eventController.createEvent ERR ', err);
       return next({
         log: `Error occurred with queries.createEvent OR eventController.createEvent middleware: ${err}`,
         message: { err: "An error occured with SQL when creating event." },
@@ -94,7 +103,7 @@ eventController.createEvent = (req, res, next) => {
 };
 
 eventController.addNewEventToJoinTable = (req, res, next) => {
-  
+  console.log('eventController.addNewEventToJoinTable')
   const queryString = queries.addNewEventToJoinTable;
   
   db.query(queryString)
@@ -103,6 +112,7 @@ eventController.addNewEventToJoinTable = (req, res, next) => {
       return next();
     })
     .catch(err => {
+      console.log('>>> eventController.addNewEventToJoinTable ERR', err);
       return next({
         log: `Error occurred with queries.addtoUsersAndEvents OR eventController.addNewEventToJoinTable middleware: ${err}`,
         message: { err: "An error occured with SQL when adding to addtoUsersAndEvents table." },
