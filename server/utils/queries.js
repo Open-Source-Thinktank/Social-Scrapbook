@@ -7,6 +7,13 @@ queries.getAllEvents = `
 SELECT * FROM events
 `;
 
+queries.getAttendeeEvents = `
+SELECT u.*, ue.eventid
+FROM usersandevents ue
+JOIN users u
+ON u.userid = ue.userid
+`;
+//
 // GET USER'S EVENTS
 queries.userEvents = `
 SELECT * FROM usersandevents WHERE userid=$1
@@ -74,6 +81,7 @@ RETURNING eventid
 queries.addNewEventToJoinTable = `
 INSERT INTO usersandevents (userid, username, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation)
 SELECT eventownerid, eventownerusername, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation FROM events
+WHERE eventid=$1
 RETURNING usersandevents;
 `;
 
@@ -92,16 +100,11 @@ RETURNING eventid
 
 
 // GRAB EVENT'S ATTENDEES
+// queries.selectEventAttendees = `SELECT * FROM usersandevents WHERE eventtitle=$1`;
 queries.selectEventAttendees = `SELECT * FROM usersandevents WHERE eventtitle=$1`;
 
 // let minchanWeddingTitle = ['minchan wedding'];
 // db.query(queries.selectEventAttendees, minchanWeddingTitle).then(data => console.log(data.rows));
-
-
-// GRAB EVENT'S ATTENDEES' USERINFO
-queries.selectEventAttendees = `SELECT * FROM usersandevents WHERE eventtitle=$1`;
-
-
 
 
 

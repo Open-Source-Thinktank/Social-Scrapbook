@@ -50,7 +50,6 @@ eventController.getAllAttendees = async (req, res, next) => {
 const resolvedPromises = Promise.all(promises)
   .then(data => {
     for(let i = 0; i < data.length; i++ ) {
-      console.log('DATA[i].rows: ', data[i].rows);
       const container = [];
       data[i].rows.forEach(obj => {
         container.push(obj.username);
@@ -85,8 +84,9 @@ eventController.createEvent = (req, res, next) => {
 //     .then(data => {
 // =======
   // const queryValues = ['minchan birthday', '9/15/2020', '06:00 PM', '09:00 PM', 'golf course', 'play minigolf birthday', userid, username, "{}"]
-  let {title, location, date, time, description} = req.body;
-  const queryValues = [title, date, time, time, location, description, userid, username, "{}"];
+  let {eventtitle, eventlocation, eventdate, eventstarttime, eventdetails} = req.body;
+  console.log('eventController.createEvent ', req.body);
+  const queryValues = [eventtitle, eventdate, eventstarttime, eventstarttime, eventlocation, eventdetails, userid, username, "{}"];
   db.query(queryString, queryValues)
     .then(data => {
       console.log('>>> eventController.createEvent DATA ', data);
@@ -105,8 +105,8 @@ eventController.createEvent = (req, res, next) => {
 eventController.addNewEventToJoinTable = (req, res, next) => {
   console.log('eventController.addNewEventToJoinTable')
   const queryString = queries.addNewEventToJoinTable;
-  
-  db.query(queryString)
+  const queryValues = [res.locals.eventID.eventid]
+  db.query(queryString, queryValues)
     .then(data => {
       res.locals.usersandevents = data.rows[0];
       return next();
@@ -121,12 +121,8 @@ eventController.addNewEventToJoinTable = (req, res, next) => {
 };
 
 eventController.verifyAttendee = (req, res, next) => {
-  // const title = req.query.eventTitle; // verify with frontend
-  
-  // =========== TWO HARD-CODED TESTS ===========
-  // const title = "minchan wedding"; // TEST IF USER IS ATTENDING
-  const title = "marc birthday"; // TEST IF USER IS NOT ATTENDING
-  
+  const title = req.query.eventtitle; // verify with frontend
+
   const { username } = res.locals.allUserInfo
 
   const queryString = queries.selectEventAttendees;
@@ -166,8 +162,7 @@ eventController.verifyAttendee = (req, res, next) => {
 
 //  (userid, username, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation)
 eventController.addAttendee = (req, res, next) => {
-  // const title = req.query.eventTitle  //verify with frontend
-  const title = "marc birthday"; // TEST IF USER IS NOT ATTENDING
+  const title = req.query.eventtitle 
   
   const { userid, username } = res.locals.allUserInfo
   // eventsID is saved in res.locals.eventID
@@ -177,7 +172,7 @@ eventController.addAttendee = (req, res, next) => {
     userid, 
     username, 
     res.locals.eventID, 
-    title, // res.locals.eventTitle, CHANGE BACK AFTER TESTING
+    title,
     res.locals.eventDate, 
     res.locals.eventStartTime, 
     res.locals.eventEndTime, 
@@ -187,7 +182,6 @@ eventController.addAttendee = (req, res, next) => {
 
   db.query(queryString, queryValues)
   .then(data => {
-    // verify with FRONTEND what will be sent back
     console.log('data from addAttendee: ', data);
     return next();
   })
@@ -208,9 +202,21 @@ eventController.allEvents = (req, res, next) => {
       if (!data.rows) {
         res.locals.allEventsInfo = [];
       } else {
-        res.locals.allEventsInfo = data.rows;
+        // console.log('evenData', data.rows)
+        const eventAndUserDataQueryString =queries.getAttendeeEvents;
+        db.query(eventAndUserDataQueryString).then(eventAndUserData => {
+            // console.log('eventAndUserData', eventAndUserData.rows)
+          const mergedTable = data.rows.map(e => {
+            const attendees = eventAndUserData.rows.filter(entry => entry.eventid == e.eventid)
+            e.attendees = attendees;
+            return e;
+          })
+          res.locals.allEventsInfo = mergedTable
+            // console.log("merged table", res.locals.allEventsInfo)
+            return next();
+          })
       }
-      return next();
+
     })
     .catch(err => {
       return next({
@@ -273,6 +279,15 @@ eventController.consolidation = (req, res, next) => {
   res.locals.userDetail.forEach((arr, i) => {
     consolidatedEvents[i].attendees = arr;
   })
+  return next();
+}
+
+eventController.filterForUser = (req, res, next) => {
+  const {userid} = res.locals.allUserInfo
+  
+  const filtered = res.locals.allEventsInfo.filter(event => event.attendees.some(attendee=>attendee.userid===userid))
+  console.log("filtered", filtered)
+  res.locals.allEventsInfo = filtered;
   return next();
 }
 

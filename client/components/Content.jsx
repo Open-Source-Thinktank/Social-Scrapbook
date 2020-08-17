@@ -12,10 +12,10 @@ export default function Content({ content }) {
       return (
         <div className="messageBox" key={`Content${index}`}>
           <div className="userMessage">
-            <img src={message.profilePicture}></img>
+            <img src={message.profilephoto}></img>
           </div>
           <div className="message" key={`Content${index}`} >
-            <p className="messageName">{message.firstName} {message.lastName}</p>
+            <p className="messageName">{message.firstname} {message.lastname}</p>
             <p className="messageText">{message.text}</p>
             <p className="messageTime">{message.time}</p>
           </div>

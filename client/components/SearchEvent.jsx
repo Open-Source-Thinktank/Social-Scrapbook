@@ -79,15 +79,13 @@ export default function SearchEvent({ searchEvent, events }) {
   useEffect(() => {
     axios.get('/api/events')
     .then(res => {
-      console.log('SearchEvent res, ', res);
       exampleEventData = res.data;
     })
   });
 
   const handleChange = (e) => {
     const regex = new RegExp(e.target.value.trim(), "gi");
-    const eventTitles = events.map(event => event.title)
-    console.log(eventTitles)
+    const eventTitles = events.map(event => event.eventtitle)
     updateResults(exampleEventData.filter((event) => event.eventtitle.match(regex) && !eventTitles.includes(event.eventtitle)))
   };
 

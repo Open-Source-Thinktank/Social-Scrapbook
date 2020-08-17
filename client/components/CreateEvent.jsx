@@ -9,9 +9,9 @@ import {Modal, Button, Form, Card} from 'react-bootstrap';
 export default function CreateEvent({addEvent}) {
   /* Form data */
   const initialFormData = Object.freeze({
-    title: "",
-    location: "",
-    description: "",
+    eventtitle: "",
+    eventlocation: "",
+    eventdetails: "",
   });
   
   const [formData, updateFormData] = React.useState(initialFormData);
@@ -29,11 +29,11 @@ export default function CreateEvent({addEvent}) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const date = dateTime.toDateString();
+    const eventdate = dateTime.toDateString();
     let time = dateTime.toTimeString();
-    time = time.split(" ")[0];
+    let eventstarttime = time.split(" ")[0];
     // ... submit to API or something
-    addEvent({ ...formData, date, time });
+    addEvent({ ...formData, eventdate, eventstarttime });
     handleClose();
   };
   
@@ -69,17 +69,17 @@ export default function CreateEvent({addEvent}) {
           <Form>
             <Form.Group controlId="formEventTitle">
               <Form.Label>Event Title</Form.Label>
-              <Form.Control name='title' onChange={handleChange} required type="text" placeholder="Enter title" />
+              <Form.Control name='eventtitle' onChange={handleChange} required type="text" placeholder="Enter title" />
             </Form.Group>
 
             <Form.Group controlId="formEventLocation">
               <Form.Label>Location</Form.Label>
-              <Form.Control name='location' onChange={handleChange} required type="text" placeholder="Enter location" />
+              <Form.Control name='eventlocation' onChange={handleChange} required type="text" placeholder="Enter location" />
             </Form.Group>
 
             <Form.Group controlId="formEventDescription">
               <Form.Label>Event Description</Form.Label>
-              <Form.Control name='description' onChange={handleChange} required as="textarea" placeholder="Enter description" />
+              <Form.Control name='eventdetails' onChange={handleChange} required as="textarea" placeholder="Enter description" />
             </Form.Group>
 
             <Form.Group controlId="formEventDescription">
