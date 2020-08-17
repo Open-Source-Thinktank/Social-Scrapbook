@@ -39,7 +39,12 @@ CREATE TABLE events
   "eventdetails" varchar NOT NULL CHECK ( eventdetails  <> ''),
   "eventownerid" bigint NOT NULL,
   "eventownerusername" varchar NOT NULL,
-  UNIQUE ( eventtitle ),
+  -- "eventattendees" varchar
+  -- ARRAY,
+  "eventmessages" varchar
+  ARRAY,
+  UNIQUE
+  ( eventtitle ),
   FOREIGN KEY
   (eventownerid) REFERENCES users
   (userid),
@@ -80,46 +85,24 @@ SELECT setval('events_eventid_seq', 1, false);
 
 
 CREATE TABLE usersandevents
-(
-  "uselessid" serial PRIMARY KEY,
-  "userid" bigint NOT NULL,
-  "username" varchar NOT NULL,
-  "eventid" bigint NOT NULL,
-  "eventtitle" varchar NOT NULL,
-  FOREIGN KEY ( userid ) REFERENCES users ( userid ),
-  FOREIGN KEY ( username ) REFERENCES users ( username ),
-  FOREIGN KEY ( eventid ) REFERENCES events ( eventid ),
-  FOREIGN KEY ( eventtitle ) REFERENCES events ( eventtitle )
-);
+  (
+    "uselessid" serial PRIMARY KEY,
+    "userid" bigint NOT NULL,
+    "username" varchar NOT NULL,
+    "eventid" bigint NOT NULL,
+    "eventtitle" varchar NOT NULL,
+    "eventdate" varchar NOT NULL,
+    "eventstarttime" varchar NOT NULL,
+    "eventendtime" varchar NOT NULL,
+    "eventdetails" varchar NOT NULL,
+    "eventlocation" varchar NOT NULL,
+    UNIQUE (username, eventtitle),
+    FOREIGN KEY ( userid ) REFERENCES users ( userid ),
+    FOREIGN KEY ( eventid ) REFERENCES events ( eventid )
+  );
 
--- ALTER TABLE  usersandevents ADD CONSTRAINT "usersandevents_fk0" FOREIGN KEY ("userid") REFERENCES users("userid");
--- ALTER TABLE  usersandevents ADD CONSTRAINT "usersandevents_fk1" FOREIGN KEY ("username") REFERENCES users("username");
--- ALTER TABLE  usersandevents ADD CONSTRAINT "usersandevents_fk2" FOREIGN KEY ("eventid") REFERENCES events("eventid");
--- ALTER TABLE  usersandevents ADD CONSTRAINT "usersandevents_fk3" FOREIGN KEY ("eventtitle") REFERENCES events("eventtitle");
-
--- INSERT INTO usersandevents
---   (userid, username, eventid, eventtitle)
--- VALUES(1, 'bonjay123', 2, 'minchan birthday');
-
--- INSERT INTO usersandevents
---   (userid, username, eventid, eventtitle)
--- VALUES(3, 'stella123', 2, 'minchan birthday');
-
--- INSERT INTO usersandevents
---   (userid, username, eventid, eventtitle)
--- VALUES(3, 'stella123', 1, 'bonjay birthday');
-
--- INSERT INTO usersandevents
---   (userid, username, eventid, eventtitle)
--- VALUES(3, 'stella123', 4, 'marc birthday');
 
 SELECT setval('usersandevents_uselessid_seq', 1, false);
--- SELECT setval('events_eventid_seq', max(eventid))
--- FROM events;
-
-
--- SELECT MAX(userid) FROM users
--- DELETE FROM users WHERE ID = (SELECT MAX(userid) FROM users)
 
 
 -- DROP TABLE USERSANDEVENTS;
