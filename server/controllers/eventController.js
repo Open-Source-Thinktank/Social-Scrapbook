@@ -79,6 +79,11 @@ eventController.createEvent = (req, res, next) => {
   
   const queryString = queries.createEvent;
   // const queryValues = [ eventtitle, eventdate, eventstarttime, eventendtime, eventlocation, eventdetails, userid, username, [] ];
+// <<<<<<< HEAD
+//   const queryValues = ['minchan birthday', '9/15/2020', '06:00 PM', '09:00 PM', 'golf course', 'play minigolf birthday', userid, username, "{'hey when is it again', 'happy birthday!', 'sorry can\'t make it'}"]
+//   db.query(queryString, queryValues)
+//     .then(data => {
+// =======
   // const queryValues = ['minchan birthday', '9/15/2020', '06:00 PM', '09:00 PM', 'golf course', 'play minigolf birthday', userid, username, "{}"]
   let {title, location, date, time, description} = req.body;
   const queryValues = [title, date, time, time, location, description, userid, username, "{}"];
