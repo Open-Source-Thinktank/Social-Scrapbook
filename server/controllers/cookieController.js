@@ -1,14 +1,6 @@
 const cookieController = {};
 
-/**
-* setSSIDCookie - store the user id in a cookie
-*/
-
 cookieController.setSSIDCookie = (req, res, next) => {
-  // need to understand how information is being passed in from OAuth to here (i.e., capture username somehow)
-    // might have to do a query here to the SQL database to get username that is tied to the email used for OAuth
-  // const { username } = req.body;
-  // console.log('I am in the ssid cookie');
   res.cookie('user', res.locals.token, { httpOnly: true });
   return next();
 };
@@ -17,8 +9,17 @@ cookieController.isLoggedIn = (req, res, next) => {
   if (req.cookies.user) {
     return next();
   } else {
-    return next('User is not logged in');
+    return next({
+      log: `User is not logged in`,
+      code: 401,
+      message: { err: "User is not logged in." },
+    });
   }
 };
+
+cookieController.removeCookie = (req, res, next) => {
+  res.clearCookie('user');
+  return next();
+}
 
 module.exports = cookieController;

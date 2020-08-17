@@ -1,91 +1,85 @@
 const express = require("express");
 const router = express.Router();
-
+const path = require('path');
 const fileController = require('../controllers/fileController');
 const cookieController = require('../controllers/cookieController');
 const eventController = require('../controllers/eventController');
 const loginController = require('../controllers/loginController');
 
-router.get("/", (req, res) => {
-  return res.status(200).send('hi');
+// EXISING USER LOGIN
 
-})
-
-router.get("/login", loginController.oAuth, (req, res) => {
-  return res.redirect(res.locals.url)
-});
-
-router.get("/login/google",
-loginController.afterConsent,
-cookieController.setSSIDCookie,
-fileController.getUser,
-eventController.getFullEvents,
-(req, res) => {
-  // available for use: res.locals.userInfo, res.locals.eventsInfo
-  
-  console.log('USERINFO: ', res.locals.allUserInfo)
-  console.log('eventsinfo :', res.locals.allEventsInfo)
-  
-  const responseObj = {
-    
-  };
-  return res.status(200).send('hi there');
-});
-
-
-// (req, res) => {
-//   //return res.send('You are logged in');
-//   return res.redirect('/api/afterLogin')
-// })
-
-
-// REVISITING THE WEBSITE AND CHECKING TO SEE IF THEY ARE ALREADY LOGGED IN
-
-router.get('/info', // be mindful if this is GET vs. POST request
-  cookieController.isLoggedIn,
-  fileController.getUser,
-  eventController.getFullEvents,
+router.get('/login',
+  loginController.oAuth,
   (req, res) => {
-    // available for use: res.locals.userInfo, res.locals.eventsInfo
-    const responseObj = {
-
-    };
-    res.status(200).json(responseObj);
+    return res.redirect(res.locals.url)
   });
 
+router.get('/login/google',
+  loginController.afterConsent,
+  cookieController.setSSIDCookie,
+  fileController.createUser, // if username already exists, return next() => getUser // if not, create user in SQL database
+  // fileController.getUser,
+  // eventController.getFullEvents,
+  (req, res) => {
+    // const responseObj = {
+    //   users: res.locals.allUserInfo,
+    //   events: res.locals.allEventsInfo
+    // };
+    return res.sendFile(path.join(__dirname, '../../client/index.html'));
+  });
 
-// router.post('/signup',
-//   // fileController.OAuth /* Might remove this controller from here -- have Minchan's completed OAuth process redirect to /api/signup */
-//   fileController.createUser,
-//   cookieController.setSSIDCookie,
-//   eventController.getFullEvents,
-//   (req, res) => {
-//     return res.status(200).json('SEND FULL EVENT LISTING');
-//   });
+// REVISIT WEBSITE AFTER LEAVING, OR VISITING SOMEONE ELSE'S PROFILE PAGE
 
-// router.post('/logout',
-//   // figure out logic to delete cookie
-//   (req, res) => {
-//     return res.sendStatus(200);
-//   });
+router.get('/info',
+  cookieController.isLoggedIn, // this is really only is applicable for the same user
+  fileController.getUser,
+  eventController.getFullEvents,
+  eventController.getAllAttendees,
+  eventController.getUserDetail,
+  eventController.consolidation,
+  (req, res) => {
+    const responseObj = {
+      users: res.locals.allUserInfo,
+      events: res.locals.allEventsInfo,
+    };
+    console.log('responseObj: ', responseObj);
+    return res.status(200).json(responseObj);
+  });
 
-// router.post('/create',
-//   fileController.verifyUser,
-//   eventController.createEvent,
-//   // Might need an additional db query to get that event's details,
-//   eventController.addToUsersAndEvents, // JEN ADDED THIS
-//   eventController.getOneEvent,
-//   (req, res) => {
-//     return res.status(200).json('SEND INDIVIDUAL EVENT DETAILS');
-//   });
+// LOGGING OUT
 
-// router.post('/add',
-//   fileController.verifyUser,
-//   eventController.addEvent,
-//   // Might need an additional db query to get that event's details,
-//   eventController.getOneEvent,
-//   (req, res) => {
-//     return res.status(200).json('SEND INDIVIDUAL EVENT DETAILS');
-//   });
+router.use('/logout', // SWITCH THIS TO POST REQUEST!!
+  cookieController.removeCookie,
+  (req, res) => {
+    return res.status(200).json('Successful logout.');
+  });
+
+// CREATE A NEW EVENT
+
+router.use('/create', // SWITCH THIS TO POST REQUEST!!
+  fileController.verifyUser,
+  fileController.getUser,
+  eventController.createEvent,
+  eventController.addNewEventToJoinTable,
+  (req, res) => {
+    return res.status(200).json('Event succcessfully created.');
+  });
+
+// ADD USER TO AN EXISTING EVENT
+
+router.use('/add', // SWITCH THIS TO POST REQUEST!!
+  fileController.getUser,
+  eventController.verifyAttendee,
+  eventController.addAttendee,
+  (req, res) => {
+    return res.status(200).json('User successfully added as attendee.');
+  });
+
+router.use('/events', // SWITCH THIS TO A GET REQUEST!!
+  eventController.allEvents,
+  (req, res) => {
+    return res.status(200).json(res.locals.allEventsInfo);
+  }
+)
 
 module.exports = router;
