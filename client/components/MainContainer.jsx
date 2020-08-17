@@ -31,19 +31,31 @@ export default function MainContainer() {
       attendees: [
         {
           userName: 'user1',
+          firstName: 'Jen',
+          lastName: 'Song',
           profilePicture: 'https://www.thesprucepets.com/thmb/sfuyyLvyUx636_Oq3Fw5_mt-PIc=/3760x2820/smart/filters:no_upscale()/adorable-white-pomeranian-puppy-spitz-921029690-5c8be25d46e0fb000172effe.jpg'
         },
         {
           userName: 'user2',
+          firstName: 'Minchan',
+          lastName: 'Jun',
           profilePicture: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg'
         },
       ],
       content: [
         {
+          userName: 'user1',
+          firstName: 'Jen',
+          lastName: 'Song',
+          profilePicture: 'https://www.thesprucepets.com/thmb/sfuyyLvyUx636_Oq3Fw5_mt-PIc=/3760x2820/smart/filters:no_upscale()/adorable-white-pomeranian-puppy-spitz-921029690-5c8be25d46e0fb000172effe.jpg',
           text: 'awesome!! can\'t wait',
           time: '02:51 PM EST' // formatting not set in stone
         },
         {
+          userName: 'user2',
+          firstName: 'Minchan',
+          lastName: 'Jun',
+          profilePicture: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg',
           text: 'lets go',
           time: '01:35 PM EST'
         }
@@ -55,10 +67,14 @@ export default function MainContainer() {
       attendees: [
         {
           userName: 'user3',
+          firstName: 'Bon-Jay',
+          lastName: '123',
           profilePicture: 'https://images.theconversation.com/files/319375/original/file-20200309-118956-1cqvm6j.jpg'
         },
         {
           userName: 'user4',
+          firstName: 'Stella',
+          lastName: 'Song',
           profilePicture: 'https://thedogtale.com/wp-content/uploads/2019/09/Yorkie-Weight-Chart_How-Big-Will-My-Yorkie-Get.jpg'
         },
       ]
@@ -107,20 +123,18 @@ export default function MainContainer() {
   }
     
   return (
-    <div className="container">
+    <div className="myContainer">
       <Notnav />
-      <Container className="justify-space-between header">
-      <Row>
-        <Col>
+      <div className="container">
+        <Container className="header">
           <Profile {...user}/>
-        </Col>
           <AddSearchEvent addEvent={handleCreateEvent} searchEvent={handleSearchEvent} events={events}/>
-      </Row>
-      </Container>
-      <EventsFeed 
-        events={events}
-        userUpdate={handleUserPageChange}
-      />
+        </Container>
+        <EventsFeed 
+          events={events}
+          userUpdate={handleUserPageChange}
+        />
+      </div>
     </div>
   );
 }

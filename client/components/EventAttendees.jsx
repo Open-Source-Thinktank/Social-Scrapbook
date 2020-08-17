@@ -5,19 +5,22 @@ export default function EventAttendees({attendees, userUpdate}) {
 
   let attendeesList = [];
   if (attendees) {
-    attendeesList = attendees.map( attendee => {
+    attendeesList = attendees.map( (attendee, index) => {
     return (
-      <div class="attendee circular">
-        <img src={`${attendee.profilePicture}`} onClick={() => { userUpdate(attendee.userName)}}/>
+      <div className="attendeeInfo" key={`EventAttendees${index}`}>
+        <div className="circular"  >
+          <img src={`${attendee.profilePicture}`} onClick={() => { userUpdate(attendee.userName)}}/>
+        </div>
+        <p>{attendee.firstName} {attendee.lastName}</p>
       </div>
     )
     });
   }
 
   return (
-    <div class="attendeesContainer">
+    <div className="attendeesContainer">
       <h5>Attendees:</h5>
-        <div class="attendees">
+        <div className="attendees">
           { attendeesList }
         </div>
     </div>

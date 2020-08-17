@@ -8,11 +8,17 @@ export default function Content({ content }) {
 
   let messages = [];
   if (cont) {
-    messages = cont.map( message => {
+    messages = cont.map( (message, index) => {
       return (
-        <div className="message">
-          <p className="messageText">{message.text}</p>
-          <p className="messageTime">{message.time}</p>
+        <div className="messageBox" key={`Content${index}`}>
+          <div className="userMessage">
+            <img src={message.profilePicture}></img>
+          </div>
+          <div className="message" key={`Content${index}`} >
+            <p className="messageName">{message.firstName} {message.lastName}</p>
+            <p className="messageText">{message.text}</p>
+            <p className="messageTime">{message.time}</p>
+          </div>
         </div>
       )
     });

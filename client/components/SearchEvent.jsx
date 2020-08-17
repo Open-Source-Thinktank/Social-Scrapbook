@@ -106,15 +106,20 @@ export default function SearchEvent({ searchEvent, events }) {
   return (
     <div>
 
-      <Card className="mx-auto text-center" style={{ width: '18rem' }}>
+      {/* <Card className="mx-auto text-center" style={{ width: '18rem' }}>
         <div className="cardContainer" onClick={handleShow}>
           <FontAwesomeIcon className="mx-auto faSearchPlus" icon={faSearchPlus} size="8x" />
           <Card.Body>
             <Card.Title>Search for Event</Card.Title>
           </Card.Body>
         </div>
-      </Card>
+      </Card> */}
 
+      <div className='cardContainer' onClick={handleShow}>
+        <FontAwesomeIcon className="mx-auto faSearchPlus" icon={faSearchPlus} size="4x" />
+        <p>Search for Event</p>
+      </div>
+      
       <Modal show={show} onHide={handleClose} animation={true}>
         <Modal.Header closeButton>
           <Modal.Title>Search for an Event</Modal.Title>

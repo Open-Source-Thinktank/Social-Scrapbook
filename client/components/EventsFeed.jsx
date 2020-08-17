@@ -5,10 +5,11 @@ export default function EventsFeed(props) {
   console.log('EventsFeed', props);
   let events = [];
   if (props) {
-    events = props.events.map( (event) => {
+    events = props.events.map( (event, index) => {
         return <Event
          {...event}
           userUpdate={props.userUpdate}
+          key={`EventsFeed${index}`}
       />
     })
   }
