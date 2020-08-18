@@ -21,8 +21,7 @@ CREATE TABLE events
   "eventdetails" varchar NOT NULL CHECK ( eventdetails  <> ''),
   "eventownerid" bigint NOT NULL,
   "eventownerusername" varchar NOT NULL,
-  "eventmessages" varchar
-  ARRAY,
+  "eventmessages" varchar ARRAY,
   UNIQUE
   ( eventtitle ),
   FOREIGN KEY

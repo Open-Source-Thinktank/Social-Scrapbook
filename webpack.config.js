@@ -65,4 +65,8 @@ module.exports = {
     }),
     new MiniCssExtractPlugin() 
   ],
+  node: {
+    fs: 'empty',
+    http2: 'empty'
+  }
 };
