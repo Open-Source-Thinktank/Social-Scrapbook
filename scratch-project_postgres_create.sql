@@ -9,8 +9,6 @@ CREATE TABLE users
 );
 
 SELECT setval('users_userid_seq', 1, false);
--- SELECT setval('users_userid_seq', max(userid))
--- FROM users;
 
 CREATE TABLE events
 (
@@ -23,7 +21,6 @@ CREATE TABLE events
   "eventdetails" varchar NOT NULL CHECK ( eventdetails  <> ''),
   "eventownerid" bigint NOT NULL,
   "eventownerusername" varchar NOT NULL,
-  -- "eventattendees" varchar ARRAY,
   "eventmessages" varchar ARRAY,
   UNIQUE
   ( eventtitle ),
@@ -35,13 +32,7 @@ CREATE TABLE events
   (username)
 );
 
--- ALTER TABLE events ADD CONSTRAINT "events_fk0" FOREIGN KEY ("eventownerid") REFERENCES users("userid");
--- ALTER TABLE events ADD CONSTRAINT "events_fk1" FOREIGN KEY ("eventownerusername") REFERENCES  users("username");
-
 SELECT setval('events_eventid_seq', 1, false);
--- SELECT setval('events_eventid_seq', max(eventid))
--- FROM events;
-
 
 CREATE TABLE usersandevents
   (
@@ -60,28 +51,4 @@ CREATE TABLE usersandevents
     FOREIGN KEY ( eventid ) REFERENCES events ( eventid )
   );
 
-
 SELECT setval('usersandevents_uselessid_seq', 1, false);
-
-
-
--- CREATE TABLE eventsandcomments
---   (
---     "uselessid" serial PRIMARY KEY,
---     "username" varchar NOT NULL,
---     "eventtitle" varchar NOT NULL,
---     "messagetext" varchar,
---     "messagedate" date NOT NULL,
---     "messagetime" time NOT NULL,
---     FOREIGN KEY ( username ) REFERENCES users ( username ),
---     FOREIGN KEY ( eventtitle ) REFERENCES events ( eventtitle )
---   );
-
-
---   SELECT setval('eventsandcomments_uselessid_seq', 1, false);
-
-
--- DROP TABLE EVENTSANDCOMMENTS;
--- DROP TABLE USERSANDEVENTS;
--- DROP TABLE EVENTS;
--- DROP TABLE USERS;

@@ -34,9 +34,9 @@ router.get('/login/google',
 router.get('/info',
   cookieController.isLoggedIn, // this is really only is applicable for the same user
   fileController.getUser,
-  eventController.allEvents, // COMMENT OUT IF IT BREAKS
-  eventController.filterForUser, // COMMENT OUT IF IT BREAKS
-  // eventController.getFullEvents,
+  eventController.allEvents,
+  eventController.filterForUser,
+  // eventController.getFullEvents,   //ALL COMMENTED OUT OBSOLETE - KEPT IN CASE NEEDED LATER - REPLACED BY .allEvents and .filterForUser
   // eventController.getAllAttendees,
   // eventController.getUserDetail,
   // eventController.consolidation,
@@ -59,7 +59,7 @@ router.use('/logout', // SWITCH THIS TO POST REQUEST!!
 
 // CREATE A NEW EVENT
 
-router.post('/create', // SWITCH THIS TO POST REQUEST!!
+router.post('/create',
   fileController.verifyUser,
   fileController.getUser,
   eventController.createEvent,

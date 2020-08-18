@@ -4,29 +4,28 @@ import DateTimePicker from 'react-datetime-picker';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faSearchPlus } from '@fortawesome/free-solid-svg-icons'
-import {Modal, Button, Form, Card} from 'react-bootstrap';
+import { Modal, Button, Form, Card } from 'react-bootstrap';
 
-export default function CreateEvent({addEvent}) {
+export default function CreateEvent({ addEvent }) {
   /* Form data */
   const initialFormData = Object.freeze({
     eventtitle: "",
     eventlocation: "",
     eventdetails: "",
   });
-  
+
   const [formData, updateFormData] = React.useState(initialFormData);
   const [dateTime, onChange] = useState(new Date());
   const [show, setShow] = useState(false);
-  
+  //handles any change tot he form and updates the state
   const handleChange = (e) => {
     updateFormData({
       ...formData,
-
       // Trimming any whitespace
       [e.target.name]: e.target.value.trim()
     });
   };
-
+  //handles submit event - create date and time and append to the event object
   const handleSubmit = (e) => {
     e.preventDefault()
     const eventdate = dateTime.toDateString();
@@ -36,24 +35,13 @@ export default function CreateEvent({addEvent}) {
     addEvent({ ...formData, eventdate, eventstarttime });
     handleClose();
   };
-  
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // const handleDate = date => {
-  //   setDate(date);
-  // };
+
 
   return (
     <div>
-      {/* 
-      <Card className="mx-auto text-center" style={{ width: '18rem' }}>
-          <div className="cardContainer" onClick={handleShow}>
-            <FontAwesomeIcon className="mx-auto faPlus" icon={faPlus} size="8x" />
-            <Card.Body>
-              <Card.Title>Add Event</Card.Title>
-            </Card.Body>
-          </div>
-        </Card> */}
 
       <div className='cardContainer' onClick={handleShow}>
         <FontAwesomeIcon className="mx-auto faPlus" icon={faPlus} size="4x" />
@@ -84,13 +72,13 @@ export default function CreateEvent({addEvent}) {
 
             <Form.Group controlId="formEventDescription">
               <Form.Label>Start Date & Time</Form.Label>
-            <DateTimePicker
-              onChange={onChange}
-              value={dateTime}
-            />
+              <DateTimePicker
+                onChange={onChange}
+                value={dateTime}
+              />
             </Form.Group>
 
-            <Button variant="primary" type="submit" onClick={(e) => { handleSubmit(e)}}>
+            <Button variant="primary" type="submit" onClick={(e) => { handleSubmit(e) }}>
               Submit
             </Button>
           </Form>
